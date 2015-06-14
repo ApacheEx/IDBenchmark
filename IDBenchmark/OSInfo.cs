@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace IDBenchmark
 {
@@ -33,6 +28,36 @@ namespace IDBenchmark
         }
 
         /// <summary>
+        /// Returns model.
+        /// </summary>
+        /// <returns>A string containing the model of computer.</returns>
+        public static string GetModelName()
+        {
+            return GetHardwareInfo("Win32_ComputerSystem", "Manufacturer") + " " + GetHardwareInfo("Win32_ComputerSystem", "Model");
+        }
+
+        /// <summary>
+        /// Returns the memory information.
+        /// </summary>
+        /// <returns>A string containing the memory information.</returns>
+        public static string GetMemoryName()
+        {
+            var memory = decimal.Parse(GetHardwareInfo("Win32_ComputerSystem", "TotalPhysicalMemory"));
+            memory =  decimal.Round(memory / 1024 / 1024 / 1024, 2);
+
+            return $"{memory} GB";
+        }
+
+        /// <summary>
+        /// Returns the name of the GPU.
+        /// </summary>
+        /// <returns>A string containing the GPU name.</returns>
+        public static string GetGpuName()
+        {
+            return GetHardwareInfo("Win32_VideoController");
+        }
+
+        /// <summary>
         /// Returns the information of the computer hardware.
         /// </summary>
         /// <returns>A string containing the the computer hardware info.</returns>
@@ -50,7 +75,6 @@ namespace IDBenchmark
                     catch {
                         info = share.ToString();
                     }
-
                     if (share.Properties.Count <= 0) {
                         info = "";
                     }
@@ -58,7 +82,7 @@ namespace IDBenchmark
             }
             catch (Exception exp)
             {
-                info = "Opps:(\n" + exp.Message.ToString();
+                info = "Oooops, something went wrong:(\n" + exp.Message.ToString();
             }
             return info.Trim();
         }

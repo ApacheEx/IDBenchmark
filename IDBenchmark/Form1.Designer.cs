@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelGPU = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.labelMemory = new System.Windows.Forms.Label();
             this.labelModel = new System.Windows.Forms.Label();
             this.labelProcessor = new System.Windows.Forms.Label();
@@ -50,7 +53,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -140,6 +143,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelGPU);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.labelMemory);
             this.groupBox1.Controls.Add(this.labelModel);
             this.groupBox1.Controls.Add(this.labelProcessor);
@@ -150,10 +155,28 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(516, 103);
+            this.groupBox1.Size = new System.Drawing.Size(516, 120);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Information";
+            // 
+            // labelGPU
+            // 
+            this.labelGPU.AutoSize = true;
+            this.labelGPU.Location = new System.Drawing.Point(164, 60);
+            this.labelGPU.Name = "labelGPU";
+            this.labelGPU.Size = new System.Drawing.Size(61, 13);
+            this.labelGPU.TabIndex = 9;
+            this.labelGPU.Text = "Checking...";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 60);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Graphics:";
             // 
             // labelMemory
             // 
@@ -167,7 +190,7 @@
             // labelModel
             // 
             this.labelModel.AutoSize = true;
-            this.labelModel.Location = new System.Drawing.Point(164, 60);
+            this.labelModel.Location = new System.Drawing.Point(164, 100);
             this.labelModel.Name = "labelModel";
             this.labelModel.Size = new System.Drawing.Size(61, 13);
             this.labelModel.TabIndex = 6;
@@ -203,7 +226,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 60);
+            this.label5.Location = new System.Drawing.Point(12, 100);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 2;
@@ -230,7 +253,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 140);
+            this.label1.Location = new System.Drawing.Point(9, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(153, 13);
             this.label1.TabIndex = 2;
@@ -239,33 +262,38 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 159);
+            this.label2.Location = new System.Drawing.Point(9, 178);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(305, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "IDBenchmark works best when it\'s the only application running.";
             // 
-            // button1
+            // btnRun
             // 
-            this.button1.Location = new System.Drawing.Point(340, 178);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 27);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Run Benchmarks";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRun.Location = new System.Drawing.Point(340, 195);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(188, 27);
+            this.btnRun.TabIndex = 4;
+            this.btnRun.Text = "Run Benchmarks";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 217);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(540, 234);
+            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IDBenchmark";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -301,7 +329,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.Label labelGPU;
+        private System.Windows.Forms.Label label8;
     }
 }
 
