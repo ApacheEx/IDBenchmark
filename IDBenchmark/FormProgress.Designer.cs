@@ -33,9 +33,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelWorkload = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.timerElapsed = new System.Windows.Forms.Timer(this.components);
+            this.progressBenchmark = new System.Windows.Forms.ProgressBar();
             this.labelTime = new System.Windows.Forms.Label();
+            this.IDBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.timerElapsed = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnCancel
@@ -85,16 +86,12 @@
             this.labelWorkload.TabIndex = 4;
             this.labelWorkload.Text = "Checking..";
             // 
-            // progressBar1
+            // progressBenchmark
             // 
-            this.progressBar1.Location = new System.Drawing.Point(117, 29);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(250, 20);
-            this.progressBar1.TabIndex = 5;
-            // 
-            // timerElapsed
-            // 
-            this.timerElapsed.Enabled = true;
+            this.progressBenchmark.Location = new System.Drawing.Point(117, 29);
+            this.progressBenchmark.Name = "progressBenchmark";
+            this.progressBenchmark.Size = new System.Drawing.Size(250, 20);
+            this.progressBenchmark.TabIndex = 5;
             // 
             // labelTime
             // 
@@ -105,6 +102,20 @@
             this.labelTime.TabIndex = 6;
             this.labelTime.Text = "00:00:00";
             // 
+            // IDBackgroundWorker
+            // 
+            this.IDBackgroundWorker.WorkerReportsProgress = true;
+            this.IDBackgroundWorker.WorkerSupportsCancellation = true;
+            this.IDBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.IDBackgroundWorker_DoWork);
+            this.IDBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.IDBackgroundWorker_ProgressChanged);
+            this.IDBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.IDBackgroundWorker_RunWorkerCompleted);
+            // 
+            // timerElapsed
+            // 
+            this.timerElapsed.Enabled = true;
+            this.timerElapsed.Interval = 1000;
+            this.timerElapsed.Tick += new System.EventHandler(this.TimerElapsed_Tick);
+            // 
             // FormProgress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,7 +123,7 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(379, 109);
             this.Controls.Add(this.labelTime);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.progressBenchmark);
             this.Controls.Add(this.labelWorkload);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -126,6 +137,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Benchmark Progress";
+            this.Load += new System.EventHandler(this.FormProgress_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,8 +150,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelWorkload;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Timer timerElapsed;
+        private System.Windows.Forms.ProgressBar progressBenchmark;
         private System.Windows.Forms.Label labelTime;
+        private System.ComponentModel.BackgroundWorker IDBackgroundWorker;
+        private System.Windows.Forms.Timer timerElapsed;
     }
 }

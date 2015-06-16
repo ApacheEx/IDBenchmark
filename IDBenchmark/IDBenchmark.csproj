@@ -54,7 +54,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Graphicloads-Colorful-Long-Shadow-Files-2.ico</ApplicationIcon>
+    <ApplicationIcon>IDBenchmark.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,7 +134,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Graphicloads-Colorful-Long-Shadow-Files-2.ico" />
+    <Content Include="IDBenchmark.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
