@@ -11,8 +11,8 @@ namespace IDBenchmark
 {
     public partial class FormProgress : Form
     {
-        private const int TotalTests = 10;
-        private long _timeElapsed;
+        public const int TotalTests = 5;
+        public static long TimeElapsed;
         private int _currentTest;
 
         public FormProgress()
@@ -45,13 +45,14 @@ namespace IDBenchmark
                 doWorkEventArgs.Cancel = true;
                 return;
             }
-            getTestName(currentTest, true);
+            GetTestName(currentTest, true);
+            Thread.Sleep(1000);
         }
 
         private void IDBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBenchmark.Value = e.ProgressPercentage;
-            labelWorkload.Text = getTestName(_currentTest);
+            labelWorkload.Text = GetTestName(_currentTest);
         }
 
         private void IDBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -65,22 +66,26 @@ namespace IDBenchmark
             else if (e.Cancelled)
             {
                 labelWorkload.Text = "Stopping benchmarks...";
-                Close();
+                this.Close();
             }
             else
             {
-                // @TODO Run a new form with graph of CPU usage and Score.
-                MessageBox.Show(string.Format("Done!!! Time Elapsed: {0} seconds.", _timeElapsed / 1000));
+                // @TODO Run a new form with graph of CPU usage.
+                this.Close();
+            
+                var resultForm = new FormResult { Location = this.Location };
+                resultForm.Location = new Point(this.Location.X + this.Width / 2 - resultForm.Width / 2, this.Location.Y + this.Height / 2 - resultForm.Height / 2);
+                resultForm.Show();
             }
         }
-
+       
         private void FormProgress_Load(object sender, EventArgs e)
         {
             // Reset the text in the result label.
             var date = new DateTime(0);
             labelTime.Text = date.ToString("HH:mm:ss");
             // Run timer.
-            _timeElapsed = 0;
+            TimeElapsed = 0;
             timerElapsed.Start();
             // Reset the variable for percentage tracking.
             progressBenchmark.Value = 0;
@@ -90,74 +95,44 @@ namespace IDBenchmark
 
         private void TimerElapsed_Tick(object sender, EventArgs e)
         {
-            _timeElapsed += timerElapsed.Interval;
-            var date = new DateTime(_timeElapsed * 10000);
+            TimeElapsed += timerElapsed.Interval;
+            var date = new DateTime(TimeElapsed * 10000);
             labelTime.Text = date.ToString("HH:mm:ss");
         }
 
-        protected string getTestName(int testID, bool run = false)
+        protected string GetTestName(int testID, bool run = false)
         {
             string testName;
             switch (testID)
             {
                 case 1:
-                    testName = "Test1";
+                    testName = "Twofish";
                     if (run) {
                         BenchmarkTest.Test1();
                     }
                     break;
                 case 2:
-                    testName = "Test2";
+                    testName = "SHA1/SHA2";
                     if (run) {
                         BenchmarkTest.Test2();
                     }
                     break;
                 case 3:
-                    testName = "Test3";
+                    testName = "DateTime";
                     if (run) {
                         BenchmarkTest.Test3();
                     }
                     break;
                 case 4:
-                    testName = "Test4";
+                    testName = "Arithmetic operations";
                     if (run) {
                         BenchmarkTest.Test4();
                     }
                     break;
                 case 5:
-                    testName = "Test5";
+                    testName = "List";
                     if (run) {
                         BenchmarkTest.Test5();
-                    }
-                    break;
-                case 6:
-                    testName = "Test6";
-                    if (run) {
-                        BenchmarkTest.Test6();
-                    }
-                    break;
-                case 7:
-                    testName = "Test7";
-                    if (run) {
-                        BenchmarkTest.Test7();
-                    }
-                    break;
-                case 8:
-                    testName = "Test8";
-                    if (run) {
-                        BenchmarkTest.Test8();
-                    }
-                    break;
-                case 9:
-                    testName = "Test9";
-                    if (run) {
-                        BenchmarkTest.Test9();
-                    }
-                    break;
-                case 10:
-                    testName = "Test10";
-                    if (run) {
-                        BenchmarkTest.Test10();
                     }
                     break;
                 default:
@@ -171,6 +146,7 @@ namespace IDBenchmark
         {
             // Cancel the asynchronous operation.
             IDBackgroundWorker.CancelAsync();
+            this.Close();
         }
     }
 }
